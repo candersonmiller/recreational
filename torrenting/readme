@@ -1,0 +1,6 @@
+This script needs
+
+cjson for python
+pytorrent for python
+transmission bittorrent client
+	running in a mode where it can accept new connections
