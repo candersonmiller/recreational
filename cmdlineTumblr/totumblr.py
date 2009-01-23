@@ -24,7 +24,7 @@ PASSWORD='pass'
 
 def main():
 	if len(sys.argv) != 2:
-		print "Usage: tumbl <photofile>"
+		print "Usage: ./totumblr.py <photofile>"
 		sys.exit(-1)
 
 	photo_filename = sys.argv[1]
