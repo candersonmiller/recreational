@@ -16,22 +16,14 @@ import time
 last_beat = time.clock()
 
 
-def heartBeat(*msg):
-	if(msg[0][2] > 0):
-		global last_beat
-		last_beat = time.clock()
-		#print last_beat
-		#last beat = now
 
 def main():
 	osc.init()
-	osc.listen("127.0.0.1",9001)
-	osc.bind(heartBeat, "/beat")
+	i = 0
 	while(1):
-		global last_beat
-		time_diff = (time.clock() - last_beat)
-		print time_diff;
-		time.sleep(30);
+		osc.sendMsg("/beat",[i],"127.0.0.1",9001)
+		i = i + 1
+		time.sleep(0.5);
 		#if timedelta between last beat and right now is greater than some BIG DELTA which is the overall time difference, restart the program
 
 if __name__ == '__main__':
