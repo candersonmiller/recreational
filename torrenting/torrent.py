@@ -16,6 +16,9 @@ from BeautifulSoup import BeautifulSoup
 from BeautifulSoup import SoupStrainer
 from pytorrent import TorrentClient
 
+#CREATE DATABASE torrent;
+#CREATE USER 'torrent'@'localhost' IDENTIFIED BY 'assface';
+#grant all privileges on torrent.* to 'torrent'@'localhost' WITH GRANT OPTION;
 
 
 
@@ -34,7 +37,7 @@ def getPirateBay():
 	
 	
 def programs():
-	programs = ("The Office", "Battlestar Galactica", "Scrubs", "Flight of the Conchords", "House", "Fringe", "Bones", "30 Rock", "Big Love", "Terminator")
+	programs = ["The Office", "House", "Fringe", "Bones", "30 Rock", "Big Love", "Terminator"]
 	return programs
 	
 	
@@ -72,7 +75,6 @@ def torrentList(tvshows, piratebaypage):
 
 
 def torrentLinkFromUrl(url):
-	
 	request = urllib2.Request(url) #create a request
 	request.add_header('User-Agent', 'Mozilla/5.0 (Macintosh; U; Intel Mac OS X 10.5; en-US; rv:1.9.0.4) Gecko/2008102920 Firefox/3.0.4') #http://whatsmyuseragent.com/
 	opener = urllib2.build_opener()
@@ -109,23 +111,19 @@ def main():
 	client = TorrentClient("localhost", 9091)
 	
 	
-	while(1):
-		listToDownload = torrentList(tvshows, piratebaypage)
-	
-		#linkUrl = torrentLinkFromUrl("http://www.thepiratebay.org/torrent/4661968/House.S05E12.Painless.HDTV.XviD-FQM.avi")
-		#getFileName(commandLineFormat(linkUrl))
-		for url in listToDownload:
-			linkUrl = torrentLinkFromUrl(url)
-			#toget = commandLineFormat(linkUrl)
-			client.add_torrent(linkUrl)
-		
-		
-		for torrent in client.torrents:
-			torrent.start()
-	
-		print "one more cycle"
-		seconds = 60 * 30
-		time.sleep(seconds)
+#	while(1):
+#		listToDownload = torrentList(tvshows, piratebaypage)
+#		for url in listToDownload:
+#			linkUrl = torrentLinkFromUrl(url)
+#			client.add_torrent(linkUrl)
+#		
+#		
+#		for torrent in client.torrents:
+#			torrent.start()
+#	
+#		print "one more cycle"
+#		seconds = 60 * 30
+#		time.sleep(seconds)
 	
 		
 		
