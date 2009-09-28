@@ -14,6 +14,15 @@ import MySQLdb
 from BeautifulSoup import BeautifulSoup
 from BeautifulSoup import SoupStrainer
 
+tvshows = ("House", "Family Guy", "The Cleveland Show", "Heroes", "True Blood",\
+ 			"Curb Your Enthusiasm", "Mad Men", "Entourage", "Dollhouse", "Californication",\
+ 			"The Big Bang Theory", "How I Met Your Mother", "Fringe", "American Dad",\
+			"The Office")
+
+falsePositives = ("Desperate Housewives", "Season", "mkv")  #things that are showing up in torrents you decide you don't want
+
+url = "http://thepiratebay.org/top/205"  # catch the top 100 TV shows on piratebay
+
 
 # This script definitely requires BeautifulSoup and Mysql to run.
 # BeautifulSoup can be found here http://www.crummy.com/software/BeautifulSoup/
@@ -28,14 +37,7 @@ from BeautifulSoup import SoupStrainer
 #GRANT ALL PRIVILEGES on torrents.* TO 'torrent'@'localhost' WITH GRANT OPTION;
 #CREATE TABLE torrents(id INT AUTO_INCREMENT PRIMARY KEY, link VARCHAR(300));
 
-tvshows = ("House", "Family Guy", "The Cleveland Show", "Heroes", "True Blood",\
- 			"Curb Your Enthusiasm", "Mad Men", "Entourage", "Dollhouse", "Californication",\
- 			"The Big Bang Theory", "How I Met Your Mother", "Fringe", "American Dad",\
-			"The Office")
 
-falsePositives = ("Desperate Housewives", "Season", "mkv")
-
-url = "http://thepiratebay.org/top/205"  # catch the top 100 TV shows on piratebay
 
 def checkForDupesAndReturnNewLinks(listOfLinks):
 	conn = MySQLdb.connect(
