@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # encoding: utf-8
 """
-torrent.py
+newtorrent.py
 
 Created by C. Anderson Miller on 2009-09-28.
 Copyright (c) 2009 SubmarineRich. All rights reserved.
@@ -10,12 +10,17 @@ Copyright (c) 2009 SubmarineRich. All rights reserved.
 import sys
 import os
 import urllib2
-#from pytorrent import TorrentClient
 import MySQLdb
 from BeautifulSoup import BeautifulSoup
 from BeautifulSoup import SoupStrainer
 
 
+# This script definitely requires BeautifulSoup and Mysql to run.
+# BeautifulSoup can be found here http://www.crummy.com/software/BeautifulSoup/
+# probably takes os x dev tools too
+# mysql for python should be gettable via instructions here 
+# (I'm on Snow Leopard, I'm assuming you are too) http://www.davidcramer.net/code/57/mysqldb-on-leopard.html
+# Also - you'll need wget for OS X  http://www.statusq.org/archives/2008/07/30/1954/
 
 #after installing sql, install and run as root this sequence of things
 #CREATE DATABASE torrent;
@@ -25,7 +30,8 @@ from BeautifulSoup import SoupStrainer
 
 tvshows = ("House", "Family Guy", "The Cleveland Show", "Heroes", "True Blood",\
  			"Curb Your Enthusiasm", "Mad Men", "Entourage", "Dollhouse", "Californication",\
- 			"The Big Bang Theory", "How I Met Your Mother", "Fringe", "American Dad")
+ 			"The Big Bang Theory", "How I Met Your Mother", "Fringe", "American Dad",\
+			"The Office")
 
 falsePositives = ("Desperate Housewives", "Season", "mkv")
 
@@ -59,7 +65,7 @@ def main():
 	opener.close()
 	#request.close()
 	soup = BeautifulSoup(''.join(feeddata)) #make it into beautifulsoup
-	downloadLinks = soup.findAll("a",{"title":"Download this torrent"})
+	downloadLinks = soup.findAll("a",{"title":"Download this torrent"})  #find all the torrent links
 	
 	listOfPotentials = list()
 	
@@ -81,12 +87,9 @@ def main():
 	listOfActuals = checkForDupesAndReturnNewLinks(listOfPotentials)
 	print listOfActuals
 	
-	#for item in listOfActuals:
-	#	os.system("wget %s" % item)
+	for item in listOfActuals:  # got get those links and put them into the running folder!
+		os.system("wget %s" % item)
 		
-	#client = TorrentClient("localhost", 9091)
-	#for item in listOfActuals:
-	#	client.add_torrent(linkUrl)
 	
 if __name__ == '__main__':
 	main()
